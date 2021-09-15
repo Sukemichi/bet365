@@ -33,7 +33,8 @@ setTimeout (function() {
 
 setInterval(function() {
   selection();
-},5000);
+  ipnHide();
+},120000);
 
 function createFilter() {
   $('.ipn-Classification:first-child').before('<div class="selection" style="padding:8px 20px;color: #c3c3c3;border-bottom: solid 2px #137A5A;"><div class="ipn-CompetitionButton_TextContainer" style="font-size:14px;"><div class="ipn-CompetitionButton_Text">Filter</div></div><div class="ipn-CompetitionContainer" id="selection" style="display:flex;margin-top:8px;font-size:12px;"><div class="container"><form id="form"><input type="text" id="input" class="form-control" placeholder="不要文字列(半角英数字)" autocomplete="off" pattern="^[0-9a-zA-Z,]+$"></form><ul id="ul"></ul></div></div></div>');
@@ -110,3 +111,9 @@ function saveDate() {
   });
   localStorage.setItem("filterWord", JSON.stringify(filterWord));
 };
+function ipnHide() {
+  const lists = document.querySelectorAll("li");
+  lists.forEach(list => {
+    $(".ipn-Competition:contains(" + list.innerText + ")").hide();
+  });
+}
