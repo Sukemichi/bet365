@@ -75,9 +75,6 @@ function selection() {
 function add(filter) {
   const oldList = document.querySelectorAll("#ul > li");
   let oldLists = [];
-  oldList.forEach(list => {
-    oldLists.push(list.innerText);
-  });
   let liText = input.value;
   if(filter) {
     liText = filter;
@@ -86,7 +83,7 @@ function add(filter) {
     const li = document.createElement("li");
     let count = 0;
     li.innerText = liText;
-    li.style.cssText = "display:inline-block;margin: 3px;padding:6px;border: solid 1px #c3c3c3;border-radius: 3px;";
+    li.style.cssText = "display:inline-block;margin: 3px;padding:15px;border: solid 1px #c3c3c3;border-radius: 3px;";
     li.addEventListener("touchstart", function
     (event) {
       event.preventDefault();
@@ -99,6 +96,7 @@ function add(filter) {
       count = 0;
     });
     ul.appendChild(li);
+    oldLists.push(liText);
   }
   saveDate();
   input.value = "";
@@ -109,7 +107,6 @@ function saveDate() {
   let filterWord = [];
   lists.forEach(list => {
     filterWord.push(list.innerText);
-    $(".ies-Competition:contains(" + list.innerText + ")").hide();
   });
   localStorage.setItem("filterWord", JSON.stringify(filterWord));
 };
