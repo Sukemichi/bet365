@@ -11,6 +11,10 @@ setTimeout (function() {
   const ul = document.getElementById("ul");
   const filterList = JSON.parse(localStorage.getItem("filterWord"));
 
+setInterval(() => {
+  selection();
+}, 5000);
+
 
   if(filterList) {
     filterList.forEach(filter => {
@@ -18,7 +22,6 @@ setTimeout (function() {
     })
   };
   selection();
-
   form.addEventListener("submit", function(event){
     event.preventDefault();
     let liTexts = input.value;
@@ -31,10 +34,6 @@ setTimeout (function() {
     }
   });
 },400);
-
-setInterval(function() {
-  selection();
-},5000);
 
 function createFilter() {
   $('.ipn-Classification:first-child').before('<div class="selection" style="position:relative;padding:8px 20px;color: #c3c3c3;border-bottom: solid 2px #137A5A;"><div class="ipn-CompetitionButton_TextContainer" style="font-size:14px;"><div class="ipn-CompetitionButton_Text">Filter</div></div><div class="ipn-CompetitionContainer" id="selection" style="display:flex;margin-top:8px;font-size:12px;"><div class="container"><form id="form"><input type="text" id="input" class="form-control" placeholder="不要文字列(半角英数字)" autocomplete="off" pattern="^[0-9a-zA-Z,]+$"></form><ul id="ul"></ul></div></div></div>');
@@ -74,9 +73,6 @@ function selection() {
 function add(filter) {
   const oldList = document.querySelectorAll("#ul > li");
   let oldLists = [];
-  oldList.forEach(list => {
-    oldLists.push(list.innerText);
-  });
   let liText = input.value;
   if(filter) {
     liText = filter;
@@ -95,6 +91,7 @@ function add(filter) {
       saveDate();
     });
     ul.appendChild(li);
+    oldLists.push(liText);
   }
   saveDate();
   input.value = "";
@@ -113,7 +110,6 @@ function saveDate() {
   let filterWord = [];
   lists.forEach(list => {
     filterWord.push(list.innerText);
-    $(".ipn-Competition:contains(" + list.innerText + ")").hide();
   });
   localStorage.setItem("filterWord", JSON.stringify(filterWord));
 };
